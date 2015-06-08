@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>tracking.js - color with camera</title>
+  <link rel="stylesheet" href="assets/demo.css">
+
+  <script src="tracking-min.js"></script>
+  <script src="timbre.js"></script>
+  <script src="assets/stats.min.js"></script>
+  <script src="assets/color_camera_gui.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <style>
+  video, canvas {
+    margin-left: 100px;
+    margin-top: 35px;
+    position: absolute;
+  }
+  </style>
+</head>
+<body>
+  <div class="demo-title">
+    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － choose the colors you want to detect through the controls on the right</p>
+  </div>
+
+  <div class="demo-frame">
+    <div class="demo-container">
+      <video id="video" width="600" height="450" preload autoplay loop muted controls></video>
+      <canvas id="canvas" width="600" height="450"></canvas>
+    </div>
+  </div>
+
+  <script>
+    $( document ).ready(function() {
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var freqSlide = 500;
+      var multitude = 0.25;
+      var initialY = 0;
+
+      var sine1 = T("sin", {freq: freqSlide, mul: multitude});
+      var sine2 = T("sin", {freq: freqSlide * 1.01, mul: multitude/5, phase: Math.PI * 0.25});
+      var sine3 = T("sin", {freq: freqSlide * 2, mul: multitude});
+      var saw = T("saw", {freq: freqSlide * 4, mul: multitude/5});
+      
+      var sound = T("perc", {a: 100, r: 400}, sine1, sine2,
+                    T("eq", {lpf: [100, 0.0, -48.0]}, sine3),
+                    T("perc", {r: 10}, saw),
+                    T("perc", {a: 100, r: 100},
+                      T("noise", {mul:multitude})
+                    )
+                  );
+
+      context.translate(600, 0);
+      context.scale(-1, 1);
+
+      //yellow is left, controls pitch. So track horizontal.
+      //magenta is right, controls amplitude. So track vertical.
+      var tracker = new tracking.ColorTracker(['magenta', 'yellow']);
+
+      tracking.track('#video', tracker, { camera: true });
+
+      tracker.on('track', function(event) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        event.data.forEach(function(rect) {
+          context.strokeStyle = rect.color;
+          context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+          context.font = '11px Helvetica';
+          context.fillStyle = "#fff";
+          context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+          context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+
+          //map x of yellow to pitch of played sound
+
+          if(rect.color == 'yellow'){
+            freqSlide = convertToRange(400 - rect.x,[0,600],[100,1000]);
+          }
+
+          //magenta track movement then determine how big the movement is.
+          //multitude = 0.5;
+          if(rect.color == 'magenta'){
+            if (Math.abs(initialY - rect.y) > 5 && Math.abs(initialY - rect.y) < 200){
+              multitude = convertToRange (Math.abs(initialY - rect.y),[5,200],[0.01,0.5]);
+            }
+            if (Math.abs(initialY - rect.y) > 20){
+              sound.play().bang();
+            }
+            initialY = rect.y;
+          }
+
+
+          sine1 = T("sin", {freq: freqSlide, mul: multitude});
+          sine2 = T("sin", {freq: freqSlide * 1.01, mul: multitude/5, phase: Math.PI * 0.25});
+          sine3 = T("sin", {freq: freqSlide * 2, mul: multitude});
+          saw = T("saw", {freq: freqSlide * 4, mul: multitude/5});
+
+          sound = T("perc", {a: 100, r: 400}, sine1, sine2,
+                    T("eq", {lpf: [100, 0.0, -48.0]}, sine3),
+                    T("perc", {r: 10}, saw),
+                    T("perc", {a: 100, r: 100},
+                      T("noise", {mul:multitude})
+                    )
+                  );
+        });
+      });
+
+      $(window).click(function(){
+        sound.play().bang();
+      });
+
+      function convertToRange(value, srcRange, dstRange){
+        // value is what you want to convert
+        if (value < srcRange[0] || value > srcRange[1]){
+          return 100; 
+        }
+        var srcMax = srcRange[1] - srcRange[0],
+            dstMax = dstRange[1] - dstRange[0],
+            adjValue = value - srcRange[0];
+
+        return (adjValue * dstMax / srcMax) + dstRange[0];
+      }
+    });
+  </script>
+
+</body>
+</html>
