@@ -28,6 +28,11 @@
 		$output .= htmlentities(trim($tmp)) . "\n";
 	}
 
+	$headers = apache_request_headers();
+
+	foreach ($headers as $header => $value) {
+	    echo "$header: $value <br />\n";
+	}
 	// Make it pretty for manual user access (and why not?)
 ?>
 <!DOCTYPE HTML>
