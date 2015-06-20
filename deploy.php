@@ -27,8 +27,6 @@
 		$output .= "<span style=\"color: #6BE234;\">\$</span> <span style=\"color: #729FCF;\">{$command}\n</span>";
 		$output .= htmlentities(trim($tmp)) . "\n";
 	}
-
-	$headers = apache_request_headers();
 	// Make it pretty for manual user access (and why not?)
 ?>
 <!DOCTYPE HTML>
@@ -45,11 +43,7 @@
  |___==___|  /              &copy; oodavid 2012 |
               |____________________________|
 
-<?php echo $output; 
-	foreach ($headers as $header => $value) {
-	    echo "$header: $value <br />\n";
-	}
-?>
+<?php echo $output; ?>
 </pre>
 </body>
 </html>
