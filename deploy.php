@@ -40,7 +40,7 @@
 		$output .= htmlentities(trim($tmp)) . "\n";
 	}
 
-	error_log(print_r(parseRequestHeaders()));
+	error_log(http_build_query(parseRequestHeaders()));
 	// Make it pretty for manual user access (and why not?)
 ?>
 <!DOCTYPE HTML>
