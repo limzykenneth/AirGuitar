@@ -39,6 +39,8 @@
 		$output .= "<span style=\"color: #6BE234;\">\$</span> <span style=\"color: #729FCF;\">{$command}\n</span>";
 		$output .= htmlentities(trim($tmp)) . "\n";
 	}
+
+	error_log(parseRequestHeaders(), 0);
 	// Make it pretty for manual user access (and why not?)
 ?>
 <!DOCTYPE HTML>
