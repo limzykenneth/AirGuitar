@@ -19,6 +19,7 @@
     }
     return $headers;
 	}
+
 	$commands = array(
 		'echo $PWD',
 		'whoami',
@@ -55,7 +56,7 @@
               |____________________________|
 
 <?php echo $output; 
-	echo parseRequestHeaders();
+	print_r(parseRequestHeaders());
 ?>
 </pre>
 </body>
