@@ -29,10 +29,13 @@
 	}
 
 	$headers = apache_request_headers();
+<<<<<<< HEAD
+=======
 
 	foreach ($headers as $header => $value) {
 	    echo "$header: $value <br />\n";
 	}
+>>>>>>> 23782d1fa4ef2954dd09091eae81ef26fa8e6647
 	// Make it pretty for manual user access (and why not?)
 ?>
 <!DOCTYPE HTML>
@@ -49,7 +52,11 @@
  |___==___|  /              &copy; oodavid 2012 |
               |____________________________|
 
-<?php echo $output; ?>
+<?php echo $output; 
+	foreach ($headers as $header => $value) {
+	    echo "$header: $value <br />\n";
+	}
+?>
 </pre>
 </body>
 </html>
