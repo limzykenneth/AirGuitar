@@ -57,9 +57,7 @@
  |___==___|  /              &copy; oodavid 2012 |
               |____________________________|
 
-<?php echo $output; 
-	print_r(parseRequestHeaders());
-?>
+<?php echo $output;?>
 </pre>
 </body>
 </html>
