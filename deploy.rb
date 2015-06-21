@@ -1,3 +1,4 @@
+$:.push("/home/limzyken/ruby/gems")
 require 'sinatra'
 require 'json'
 require 'logger'
