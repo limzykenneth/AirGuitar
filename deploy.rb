@@ -10,7 +10,7 @@ post '/payload', :agent => /GitHub-Hookshot/ do
   verify_signature(payload_body)
   commands = ['git status','git pull origin master','git submodule sync','git submodule update','git submodule status']
   commands.each do |i|
-  	system i
+  	`#{i}`
   end
   
   $LOG.info "Git deploy ran without critical error."
