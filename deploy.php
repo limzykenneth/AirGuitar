@@ -26,6 +26,11 @@
 		error_log($signature);
 		error_log(verify_request());
 		if (hash_equals($signature, verify_request())){
+			// Run the commands
+			foreach($commands AS $command){
+				// Run it
+				$tmp = shell_exec($command);
+			}
 			error_log("Success!");
 		}else{
 			error_log("Signature is invalid.");
@@ -56,10 +61,4 @@
 	    return $result === 0;
 	}
 
-	// Run the commands
-	foreach($commands AS $command){
-		// Run it
-		$tmp = shell_exec($command);
-	}
-	
 ?>
