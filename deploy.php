@@ -7,8 +7,9 @@
 	 *		https://gist.github.com/1809044
 	 */
 
-	$request=$_POST;
-	error_log($_SERVER['HTTP_USER_AGENT']);
+	$request=$_SERVER['HTTP_USER_AGENT'];
+	base64_encode($request);
+	error_log($request);
 
 	function verify_request(){
 		$message = "12345";
