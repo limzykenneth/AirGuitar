@@ -58,4 +58,5 @@
 	    } 
 	    return $result === 0;
 	}
+	
 ?>
