@@ -8,7 +8,7 @@
 	 */
 
 	$request=$_POST;
-	err_log($request);
+	err_log($request, 0);
 
 	function verify_request(){
 		$message = "12345";
@@ -19,8 +19,6 @@
 
 	// The commands
 	$commands = array(
-		'echo $PWD',
-		'whoami',
 		'git pull origin master',
 		'git status',
 		'git submodule sync',
