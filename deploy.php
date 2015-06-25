@@ -21,7 +21,7 @@
 	}
 
 	function verify_request(){
-		$message = $GLOBAL['body'];
+		$message = $GLOBALS['body'];
 		error_log($message);
 		$key     = "6217e99d55719fcad18aeed6f19fb9bcee225d1d";
 	    $hash    = hash_hmac("sha1", $key, $message);
@@ -42,5 +42,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
