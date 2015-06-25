@@ -11,22 +11,6 @@
 	$signature=$_SERVER['HTTP_X_HUB_SIGNATURE'];
 	$body=@file_get_contents('php://input');
 
-	base64_encode($agent);
-	base64_encode($signature);
-	if (strpos($agent,'GitHub-Hookshot') !== false){
-		error_log($signature);
-		error_log(verify_request());
-	}else{
-		error_log('Request header is invalid.');
-	}
-
-	function verify_request(){
-		$message = $GLOBALS['body'];
-		$key     = "6217e99d55719fcad18aeed6f19fb9bcee225d1d";
-	    $hash    = hash_hmac("sha1", $message, $key);
-	    return $hash;
-	}
-
 	// The commands
 	$commands = array(
 		'git pull origin master',
@@ -36,10 +20,30 @@
 		'git submodule status',
 	);
 
+	base64_encode($agent);
+	base64_encode($signature);
+	if (strpos($agent,'GitHub-Hookshot') !== false){
+		if (hash_equals($signature, verify_request())){
+			error_log("Success!");
+		}else{
+			error_log("Signature is invalid.");
+		}
+	}else{
+		error_log('Request header is invalid.');
+	}
+
+
+	function verify_request(){
+		$message = $GLOBALS['body'];
+		$key     = "6217e99d55719fcad18aeed6f19fb9bcee225d1d";
+	    $hash    = hash_hmac("sha1", $message, $key);
+	    return $hash;
+	}
+
 	// Run the commands
 	foreach($commands AS $command){
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
