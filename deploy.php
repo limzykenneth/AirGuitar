@@ -8,7 +8,7 @@
 	 */
 
 	$request=$_POST;
-	var_dump($request);
+	err_log($request);
 
 	function verify_request(){
 		$message = "12345";
@@ -16,7 +16,7 @@
 	    $hash    = hash_hmac("sha1", $key, $message);
 	    var_dump($hash);
 	}
-	
+
 	// The commands
 	$commands = array(
 		'echo $PWD',
