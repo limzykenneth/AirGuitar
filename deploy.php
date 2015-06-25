@@ -25,7 +25,7 @@
 	function verify_request(){
 		$message = $body;
 		$key     = "6217e99d55719fcad18aeed6f19fb9bcee225d1d";
-	    $hash    = hash_hmac("sha1", $message, $key);
+	    $hash    = hash_hmac("sha1", $key, $message);
 	    return $hash;
 	}
 
