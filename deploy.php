@@ -7,19 +7,19 @@
 	 *		https://gist.github.com/1809044
 	 */
 
-	$request=$_SERVER['HTTP_USER_AGENT'];
-	base64_encode($request);
-	if (strpos($request,'GitHub-Hookshot') !== false){
-		error_log($request);
+	$agent=$_SERVER['HTTP_USER_AGENT'];
+	$signature=$_SERVER['HTTP_X_HUB_SIGNATURE'];
+	base64_encode($agent);
+	if (strpos($agent,'GitHub-Hookshot') !== false){
+		error_log($agent);
 	}else{
-		error_log('Request does not contain the right header.')
+		error_log('Request header is invalid.')
 	}
 
 	function verify_request(){
 		$message = "12345";
 		$key     = getenv("GIT_TOKEN");
 	    $hash    = hash_hmac("sha1", $key, $message);
-	    var_dump($hash);
 	}
 
 	// The commands
