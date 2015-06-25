@@ -15,6 +15,7 @@
 	base64_encode($signature);
 	if (strpos($agent,'GitHub-Hookshot') !== false){
 		error_log($agent);
+		error_log(getenv("GIT_TOKEN"));
 		error_log($signature);
 		error_log(verify_request());
 	}else{
