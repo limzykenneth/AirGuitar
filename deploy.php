@@ -14,10 +14,8 @@
 	// The commands
 	$commands = array(
 		'git pull origin master',
-		'git status',
 		'git submodule sync',
-		'git submodule update',
-		'git submodule status',
+		'git submodule update'
 	);
 
 	base64_encode($agent);
