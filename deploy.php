@@ -14,8 +14,6 @@
 	base64_encode($agent);
 	base64_encode($signature);
 	if (strpos($agent,'GitHub-Hookshot') !== false){
-		error_log($agent);
-		error_log($_ENV["GIT_TOKEN"]);
 		error_log($signature);
 		error_log(verify_request());
 	}else{
@@ -44,5 +42,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
