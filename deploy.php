@@ -8,7 +8,7 @@
 	 */
 
 	$request=$_POST;
-	error_log($request['User-Agent']);
+	error_log($_SERVER['HTTP_USER_AGENT']);
 
 	function verify_request(){
 		$message = "12345";
