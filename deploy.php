@@ -10,8 +10,10 @@
 	$agent=$_SERVER['HTTP_USER_AGENT'];
 	$signature=$_SERVER['HTTP_X_HUB_SIGNATURE'];
 	base64_encode($agent);
+	base64_encode($signature);
 	if (strpos($agent,'GitHub-Hookshot') !== false){
 		error_log($agent);
+		error_log($signature);
 	}else{
 		error_log('Request header is invalid.');
 	}
@@ -36,5 +38,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
