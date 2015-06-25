@@ -8,7 +8,7 @@
 	 */
 
 	$request=$_POST;
-	error_log(implode(", ", $request), 0);
+	error_log($request['User-Agent']);
 
 	function verify_request(){
 		$message = "12345";
@@ -31,5 +31,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
