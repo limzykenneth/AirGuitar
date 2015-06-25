@@ -9,7 +9,7 @@
 
 	$agent=$_SERVER['HTTP_USER_AGENT'];
 	$signature=$_SERVER['HTTP_X_HUB_SIGNATURE'];
-	$body=HttpResponse::getRequestBody();
+	$body=@file_get_contents('php://input');
 
 	base64_encode($agent);
 	base64_encode($signature);
