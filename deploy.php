@@ -40,6 +40,21 @@
 	    return $hash;
 	}
 
+	function hash_equals( $a, $b ) {
+	    $a_length = strlen( $a );
+	    if ( $a_length !== strlen( $b ) ) {
+	        return false;
+	    }
+	    $result = 0;
+	 
+	    // Do not attempt to "optimize" this.
+	    for ( $i = 0; $i < $a_length; $i++ ) {
+	        $result |= ord( $a[ $i ] ) ^ ord( $b[ $i ] );
+	    }
+	 
+	    return $result === 0;
+	}
+
 	// Run the commands
 	foreach($commands AS $command){
 		// Run it
