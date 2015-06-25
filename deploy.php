@@ -18,6 +18,7 @@
 		error_log($_ENV["GIT_TOKEN"]);
 		error_log($signature);
 		error_log(verify_request());
+		error_log($body);
 	}else{
 		error_log('Request header is invalid.');
 	}
@@ -43,5 +44,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
