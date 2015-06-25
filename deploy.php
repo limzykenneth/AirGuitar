@@ -8,7 +8,7 @@
 	 */
 
 	$request=$_POST;
-	err_log($request, 0);
+	error_log($request, 0);
 
 	function verify_request(){
 		$message = "12345";
@@ -31,5 +31,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
