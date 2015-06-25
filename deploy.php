@@ -21,7 +21,7 @@
 	base64_encode($agent);
 	base64_encode($signature);
 	if (strpos($agent,'GitHub-Hookshot') !== false){
-		error_log($_ENV['GIT_TOKEN']);
+		error_log($_ENV['PATH']);
 		if (hash_equals($signature, verify_request())){
 			// Run the commands
 			foreach($commands AS $command){
