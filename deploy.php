@@ -18,14 +18,13 @@
 		error_log($_ENV["GIT_TOKEN"]);
 		error_log($signature);
 		error_log(verify_request());
-		error_log($body);
 	}else{
 		error_log('Request header is invalid.');
 	}
 
 	function verify_request(){
 		$message = $body;
-		$key     = $_ENV["GIT_TOKEN"];
+		$key     = "6217e99d55719fcad18aeed6f19fb9bcee225d1d";
 	    $hash    = hash_hmac("sha1", $key, $message);
 	    return $hash;
 	}
