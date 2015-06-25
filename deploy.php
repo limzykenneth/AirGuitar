@@ -23,6 +23,8 @@
 	base64_encode($agent);
 	base64_encode($signature);
 	if (strpos($agent,'GitHub-Hookshot') !== false){
+		error_log($signature);
+		error_log(verify_request());
 		if (hash_equals($signature, verify_request())){
 			error_log("Success!");
 		}else{
@@ -45,13 +47,11 @@
 	    if ( $a_length !== strlen( $b ) ) {
 	        return false;
 	    }
-	    $result = 0;
-	 
+	    $result = 0; 
 	    // Do not attempt to "optimize" this.
 	    for ( $i = 0; $i < $a_length; $i++ ) {
 	        $result |= ord( $a[ $i ] ) ^ ord( $b[ $i ] );
-	    }
-	 
+	    } 
 	    return $result === 0;
 	}
 
@@ -60,5 +60,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
