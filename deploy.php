@@ -13,7 +13,7 @@
 	if (strpos($agent,'GitHub-Hookshot') !== false){
 		error_log($agent);
 	}else{
-		error_log('Request header is invalid.')
+		error_log('Request header is invalid.');
 	}
 
 	function verify_request(){
