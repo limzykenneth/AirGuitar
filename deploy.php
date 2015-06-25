@@ -9,7 +9,11 @@
 
 	$request=$_SERVER['HTTP_USER_AGENT'];
 	base64_encode($request);
-	error_log($request);
+	if (strpos($request,'GitHub-Hookshot') !== false){
+		error_log($request);
+	}else{
+		error_log('Request does not contain the right header.')
+	}
 
 	function verify_request(){
 		$message = "12345";
