@@ -1,10 +1,10 @@
 <?php
 	/**
-	 * GIT DEPLOYMENT SCRIPT
+	 * SECURE GIT DEPLOYMENT SCRIPT
 	 *
-	 * Used for automatically deploying websites via github or bitbucket, more deets here:
+	 * Used for automatically deploying websites securely via github
 	 *
-	 *		https://gist.github.com/1809044
+	 *		Forked from https://gist.github.com/1809044
 	 */
 
 	$agent=$_SERVER['HTTP_USER_AGENT'];
@@ -23,20 +23,19 @@
 	base64_encode($agent);
 	base64_encode($signature);
 	if (strpos($agent,'GitHub-Hookshot') !== false){
-		error_log($signature);
-		error_log(verify_request());
 		if (hash_equals($signature, verify_request())){
 			// Run the commands
 			foreach($commands AS $command){
 				// Run it
 				$tmp = shell_exec($command);
 			}
-			error_log("Success!");
 		}else{
-			error_log("Signature is invalid.");
+			header('HTTP/1.1 403 Forbidden');
+			echo "Invalid request.";
 		}
 	}else{
-		error_log('Request header is invalid.');
+		header('HTTP/1.1 403 Forbidden');
+		echo "Invalid request.";
 	}
 
 
