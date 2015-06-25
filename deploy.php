@@ -24,7 +24,7 @@
 
 	function verify_request(){
 		$message = $body;
-		$key     = getenv("GIT_TOKEN");
+		$key     = $_ENV["GIT_TOKEN"];
 	    $hash    = hash_hmac("sha1", $key, $message);
 	    return $hash;
 	}
@@ -43,5 +43,5 @@
 		// Run it
 		$tmp = shell_exec($command);
 	}
-	
+
 ?>
